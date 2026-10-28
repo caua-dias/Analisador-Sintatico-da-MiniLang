@@ -1,0 +1,31 @@
+// comentario
+int total;
+int limite;
+int contador;
+
+total = 0;
+limite = 10;
+contador = 1;
+
+if (total < limite) {
+    print(total);
+    total = total + 1;
+} else {
+    print(limite);
+}
+
+while (contador <= limite) {
+    print(contador);
+    contador = contador + 2;
+}
+
+// teste de erro
+valor_ã = 10;
+@;
+!
+!=
+
+// comentario
+int resultado;
+resultado = (limite * 2) / 4;
+print(resultado);
