@@ -1,31 +1,45 @@
+"""Executa lexer + parser sobre um arquivo .mini e mostra tokens e AST."""
+
 import sys
-from minilang.lexer import Lexer
+from pathlib import Path
 
-def main():
-    if len(sys.argv) != 2:
-        print("Uso correto: python main.py <caminho_do_arquivo>")
-        sys.exit(1)
+from lexer import Lexer
+from parser import Parser, ErroSintatico
+from ast_printer import print_ast
 
-    caminho_arquivo = sys.argv[1]
+
+def executar(codigo, mostrar_tokens=True):
+    print("CÓDIGO:\n" + codigo)
+    tokens, diagnosticos = Lexer(codigo).scan_tokens()
+
+    if mostrar_tokens:
+        print("\nTOKENS:")
+        for t in tokens:
+            print(t)
+
+    if diagnosticos:
+        print("\nDIAGNÓSTICOS LÉXICOS:")
+        for d in diagnosticos:
+            print(d)
+        return None
 
     try:
-        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
-            source = arquivo.read()
-    except FileNotFoundError:
-        print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
-        sys.exit(1)
+        ast = Parser(tokens).parse()
+    except ErroSintatico as erro:
+        print(f"\n{erro}")
+        return None
 
-    lexer = Lexer(source)
-    tokens, diagnostics = lexer.scan_tokens()
+    print("\nAST:")
+    print_ast(ast)
+    return ast
 
-    print("=== TOKENS ===")
-    for token in tokens:
-        print(token)
 
-    if diagnostics:
-        print("\n=== DIAGNÓSTICOS (ERROS LÉXICOS) ===")
-        for diagnostic in diagnostics:
-            print(diagnostic)
+def main():
+    caminho = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).with_name("calcula_bonus.mini")
+    executar(caminho.read_text(encoding="utf-8"))
+    print("\n" + "=" * 40 + "\nExemplo de erro sintático:\n")
+    executar("print(2 + );", mostrar_tokens=False)
+
 
 if __name__ == "__main__":
     main()

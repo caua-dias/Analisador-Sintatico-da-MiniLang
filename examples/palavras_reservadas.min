@@ -1,8 +1,0 @@
-int contador;
-if (contador >= 10) {
-    print(contador);
-} else {
-    while contador < 10 {
-        contador = contador + 1;
-    }
-}

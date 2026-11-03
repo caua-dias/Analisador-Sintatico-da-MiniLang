@@ -1,0 +1,8 @@
+int idade;
+int bonus;
+int total;
+idade = 20 + 5 * 2;
+bonus = 10;
+total = idade + bonus * 2;
+print(total);
+print((20 + 5) * 2);
