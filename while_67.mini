@@ -1,0 +1,6 @@
+int numero;
+numero = 1;
+while (numero <= 67) {
+print(numero);
+numero = numero + 1;
+}
