@@ -35,7 +35,7 @@ def executar(codigo, mostrar_tokens=True):
 
 
 def main():
-    caminho = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).with_name("calcula_bonus.mini")
+    caminho = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).with_name("while_67.mini")
     executar(caminho.read_text(encoding="utf-8"))
     print("\n" + "=" * 40 + "\nExemplo de erro sintático:\n")
     executar("print(2 + );", mostrar_tokens=False)
